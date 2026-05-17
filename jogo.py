@@ -1,16 +1,18 @@
-import pygame
+import os
+import pygame as pg
 
-pygame.init()
+pg.init()
 
 # Tela
 largura = 400
 altura = 300
-tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption("Meu Jogo")
+tela = pg.display.set_mode((largura, altura))
+pg.display.set_caption("Meu Jogo")
 
 # Carregar imagem
-personagem = pygame.image.load("personagem.png")
-personagem = pygame.transform.scale(personagem, (110, 110))  # redimensiona
+caminho_personagem = os.path.join(os.path.dirname(__file__), "personagem.png")
+personagem = pg.image.load(caminho_personagem)
+personagem = pg.transform.scale(personagem, (110, 110))  # redimensiona
 
 # Posição
 x = 200
@@ -18,36 +20,36 @@ y = 150
 velocidade = 5
 
 # Cores
-preto = (0, 0, 0)
+azul = (0, 0, 255)
 
-clock = pygame.time.Clock()
+clock = pg.time.Clock()
 rodando = True
 
 while rodando:
     clock.tick(60)
 
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
+    for evento in pg.event.get():
+        if evento.type == pg.QUIT:
             rodando = False
 
-    teclas = pygame.key.get_pressed()
+    teclas = pg.key.get_pressed()
 
-    if teclas[pygame.K_LEFT]:
+    if teclas[pg.K_LEFT]:
         x -= velocidade
-    if teclas[pygame.K_RIGHT]:
+    if teclas[pg.K_RIGHT]:
         x += velocidade
-    if teclas[pygame.K_UP]:
+    if teclas[pg.K_UP]:
         y -= velocidade
-    if teclas[pygame.K_DOWN]:
+    if teclas[pg.K_DOWN]:
         y += velocidade
 
     # Fundo
-    tela.fill(preto)
+    tela.fill(azul)
 
     # Desenhar personagem (imagem)
     tela.blit(personagem, (x, y))
 
-    pygame.display.flip()
+    pg.display.flip()
 
-pygame.quit()
+pg.quit()
 
